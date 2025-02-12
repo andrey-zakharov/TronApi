@@ -27,14 +27,13 @@ class TronApi {
             .readTimeout(timeout)
             .writeTimeout(timeout)
             .build()
-        baseUrls.forEachIndexed { index, baseUrl ->
+        val defHeaders = Headers.Builder()
+            .add("Content-Type", "application/json")
+            .build()
+        infos = baseUrls.mapIndexed { index, baseUrl ->
             val header = if (headers.size > index) headers[index] else null
-            infos[index] = Pair(
-                baseUrl, header ?: Headers.Builder()
-                    .add("Content-Type", "application/json")
-                    .build()
-            )
-        }
+            baseUrl to (header ?: defHeaders)
+        }.toTypedArray()
     }
 
     constructor() {
