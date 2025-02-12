@@ -1,36 +1,22 @@
 package com.github.wenpiner.tron.block.data
 
 import cn.hutool.core.util.HexUtil
-import com.github.phish.tron.block.utils.base58ToBytes
-import com.github.phish.tron.block.utils.bytesToBase58
-import com.github.phish.tron.block.utils.toBigInt
+import com.github.wenpiner.tron.block.utils.base58ToBytes
+import com.github.wenpiner.tron.block.utils.bytesToBase58
+import com.github.wenpiner.tron.block.utils.toBigInt
 import java.math.BigInteger
 import java.util.*
 
 
 class Address(addr: String) {
     private lateinit var value: ByteArray
-    private lateinit var bigInteger: BigInteger
-
-    init {
-        bigInteger = if (addr.startsWith("41")) {
-            addr.substring(2).toBigInt()
-        } else if (addr.startsWith("T")) {
-            val rawByte = base58ToBytes(addr)
-            Arrays.copyOfRange(rawByte, 1, 21).toBigInt()
-        } else {
-            addr.toBigInt()
-        }
-    }
-
-    init {
-//        value = if (addr.startsWith("T")) {
-//            base58ToBytes(addr)
-//        } else if (addr.startsWith("41")) {
-//            HexUtil.decodeHex(addr)
-//        } else {
-//            countLeadingZeroes(HexUtil.decodeHex(addr))
-//        }
+    private var bigInteger: BigInteger = if (addr.startsWith("41")) {
+        addr.substring(2).toBigInt()
+    } else if (addr.startsWith("T")) {
+        val rawByte = base58ToBytes(addr)
+        Arrays.copyOfRange(rawByte, 1, 21).toBigInt()
+    } else {
+        addr.toBigInt()
     }
 
     fun toHexAddress(): String {

@@ -1,14 +1,14 @@
 package com.github.wenpiner.tron.block.data.transaction.contract
 
-import com.github.phish.tron.block.data.Address
-import com.github.phish.tron.block.serializer.StringToAddressAdapter
+import com.github.wenpiner.tron.block.data.Address
+import com.github.wenpiner.tron.block.serializer.StringToAddressAdapter
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 
 data class BeanCreateSmartContract(
     @SerializedName("new_contract")
-    val newContract: com.github.phish.tron.block.data.transaction.contract.NewContract,
-) : com.github.phish.tron.block.data.transaction.contract.BeanValue()
+    val newContract: NewContract,
+) : BeanValue()
 
 
 data class NewContract(
@@ -22,17 +22,17 @@ data class NewContract(
     @SerializedName("origin_energy_limit")
     val originEnergyLimit: Long,
     @SerializedName("abi")
-    val abi: com.github.phish.tron.block.data.transaction.contract.Abi,
+    val abi: Abi,
 )
 
 data class Abi(
     @SerializedName("entrys")
-    val entrys: List<com.github.phish.tron.block.data.transaction.contract.Entry>
+    val entrys: List<Entry>
 )
 
 data class Entry(
     @SerializedName("inputs")
-    val inputs: List<com.github.phish.tron.block.data.transaction.contract.Input>? = null,
+    val inputs: List<Input>? = null,
     @SerializedName("stateMutability")
     val stateMutability: String,
     @SerializedName("type")
@@ -40,7 +40,7 @@ data class Entry(
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("outputs")
-    val outputs: List<com.github.phish.tron.block.data.transaction.contract.Output>? = null,
+    val outputs: List<Output>? = null,
 )
 
 data class Input(

@@ -100,14 +100,14 @@ fun rawBytesToBase58(data: ByteArray): String {
     var num = BigInteger(1, data)
     while (num.signum() != 0) {
         val quotrem = num.divideAndRemainder(ALPHABET_SIZE)
-        sb.append(ALPHABET.get(quotrem[1].toInt()))
+        sb.append(ALPHABET[quotrem[1].toInt()])
         num = quotrem[0]
     }
 
     // Add '1' characters for leading 0-value bytes
     for (i in data.indices) {
         if (data[i] == 0.toByte()) {
-            sb.append(ALPHABET.get(0))
+            sb.append(ALPHABET[0])
         } else {
             break
         }

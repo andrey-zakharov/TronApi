@@ -1,7 +1,8 @@
 package com.github.wenpiner.tron.block.api
 
-import com.github.phish.tron.block.data.Block
-import com.github.phish.tron.block.transaction.contract.ContractType
+import com.github.wenpiner.tron.block.data.Block
+import com.github.wenpiner.tron.block.data.transaction.contract.BeanTriggerSmartContract
+import com.github.wenpiner.tron.block.data.transaction.contract.ContractType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 
@@ -11,7 +12,7 @@ class TronApiTest {
 
     @Test
     fun getBlockByIdOrNum() {
-        val result = tronApi.getBlockByIdOrNum("54492401", true)
+        val result = tronApi.getBlock("54492401", true)
         assertTrue(result.data != null && result.code == 200, result.message)
         printInfo(result)
     }
@@ -33,7 +34,7 @@ class TronApiTest {
                 val contractType = it2.parameter.getContractType()
                 if (contractType != null) {
                     if (contractType == ContractType.TriggerSmartContract) {
-                        val triggerSmartContract: com.github.phish.tron.block.data.transaction.contract.BeanTriggerSmartContract = it2.parameter.getValue(contractType)
+                        val triggerSmartContract: BeanTriggerSmartContract = it2.parameter.getValue(contractType)
                         println("From: ${triggerSmartContract.ownerAddress}")
                         println("Contract: ${triggerSmartContract.contractAddress}")
                         val functionTransfer = triggerSmartContract.functionTransfer()

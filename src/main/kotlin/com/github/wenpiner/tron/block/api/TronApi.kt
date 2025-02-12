@@ -1,8 +1,9 @@
 package com.github.wenpiner.tron.block.api
 
-import com.github.phish.tron.block.data.Block
-import com.github.phish.tron.block.data.BlockList
-import com.github.phish.tron.block.data.transaction.TransactionInfo
+import com.github.wenpiner.tron.block.data.Block
+import com.github.wenpiner.tron.block.data.BlockList
+import com.github.wenpiner.tron.block.data.transaction.Transaction
+import com.github.wenpiner.tron.block.data.transaction.TransactionInfo
 import com.google.gson.Gson
 import okhttp3.Headers
 import okhttp3.OkHttpClient
@@ -12,7 +13,7 @@ import java.io.InputStreamReader
 import java.time.Duration
 
 class TronApi {
-    private lateinit var okHttpClient: OkHttpClient
+    private var okHttpClient: OkHttpClient
     private val gson = Gson()
     private lateinit var infos: Array<Pair<String, Headers>>
 
@@ -136,12 +137,12 @@ class TronApi {
     fun getTransactionById(
         id: String,
         visible: Boolean = false
-    ): Result<com.github.phish.tron.block.data.transaction.Transaction> {
+    ): Result<Transaction> {
         return post(
             "/wallet/gettransactionbyid", mapOf(
                 "value" to id,
                 "visible" to visible,
-            ), com.github.phish.tron.block.data.transaction.Transaction::class.java
+            ), Transaction::class.java
         )
     }
 
