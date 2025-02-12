@@ -2,6 +2,7 @@ package com.github.wenpiner.tron.block.api
 
 import com.github.wenpiner.tron.block.data.Block
 import com.github.wenpiner.tron.block.data.BlockList
+import com.github.wenpiner.tron.block.data.ValidateAddressResult
 import com.github.wenpiner.tron.block.data.transaction.Transaction
 import com.github.wenpiner.tron.block.data.transaction.TransactionInfo
 import com.google.gson.Gson
@@ -144,6 +145,12 @@ class TronApi {
             ), Transaction::class.java
         )
     }
+
+    fun validateAddress(address: String) = post(
+        "/wallet/validateaddress", mapOf(
+            "address" to address
+        ), ValidateAddressResult::class.java
+    )
 
     private fun <T> post(url: String, body: Map<String, Any>, clazz: Class<T>): Result<T> {
         val (baseUrl, headers) = infos.random()
